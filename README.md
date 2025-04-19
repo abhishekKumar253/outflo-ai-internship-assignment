@@ -1,6 +1,6 @@
-# 🚀 OutFlo-AI - campaign management system
+# 🚀 OutFlo-AI – Campaign Management System
 
-A full-stack campaign management system with AI-powered personalized LinkedIn message generation — built as part of the OutFlo Internship Assignment.
+A full-stack campaign management system with AI-powered personalized LinkedIn message generation — built as part of the OutFlo Founding Tech Member Internship Assignment.
 
 ---
 
@@ -8,21 +8,28 @@ A full-stack campaign management system with AI-powered personalized LinkedIn me
 
 - 📋 Full campaign CRUD functionality (Create, Read, Update, Soft Delete)
 - 🔁 Status toggle between `ACTIVE` and `INACTIVE`
-- 🤖 AI-generated personalized messages using DeepSeek API
-- 🖥️ Responsive, clean frontend UI with form validations
-- 🔗 RESTful API with TypeScript and Express
+- 🤖 AI-generated personalized outreach messages using DeepSeek API
+- 🧠 Bonus: Paste a LinkedIn profile URL to autofill details (mocked parser)
+- 🖥️ Responsive, clean frontend UI with form validations (Tailwind CSS)
+- 🔗 RESTful API built with TypeScript and Express
 - 🗃️ Data stored in MongoDB with Mongoose
 
 ---
 
 ## 🧱 Tech Stack
 
-| Layer      | Tech Used                            |
-|------------|---------------------------------------|
-| Frontend   | React.js, TypeScript, Tailwind CSS    |
-| Backend    | Node.js, Express.js, TypeScript       |
-| Database   | MongoDB + Mongoose                    |
-| AI Service | DeepSeek API                          |
+| Layer      | Tech Used                          |
+|------------|-------------------------------------|
+| Frontend   | React.js, TypeScript, Tailwind CSS  |
+| Backend    | Node.js, Express.js, TypeScript     |
+| Database   | MongoDB + Mongoose                  |
+| AI Service | DeepSeek API                        |
+
+---
+
+## 📦 Folder Structure Overview
+
+outflo-internship-assignment/ ├── backend/ │ ├── routes/ │ ├── controllers/ │ ├── models/ │ ├── utils/ │ └── app.ts, server.ts, .env ├── frontend/ │ ├── components/ │ ├── utils/ │ ├── styles/ │ └── App.tsx, main.tsx
 
 ---
 
