@@ -1,26 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import api from "../api";
 
-interface FormState {
-  name: string;
-  job_title: string;
-  company: string;
-  location: string;
-  summary: string;
-}
-
 const MessageGenerator: React.FC = () => {
-  const [form, setForm] = useState<FormState>({
+  const [form, setForm] = useState({
     name: "",
     job_title: "",
     company: "",
     location: "",
     summary: "",
+    linkedin_url: "",
   });
 
-  const [message, setMessage] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,44 +20,93 @@ const MessageGenerator: React.FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleGenerate = async () => {
+  const fetchFromLinkedIn = async () => {
+    if (!form.linkedin_url) return;
     setLoading(true);
-    setError(null);
     try {
-      const res = await api.post("/personalized-message", form);
-      setMessage(res.data.message);
+      const res = await api.post("/linkedin-parse", { url: form.linkedin_url });
+      setForm({ ...form, ...res.data });
     } catch {
-      setError("Failed to generate message. Please try again.");
+      alert("Failed to fetch LinkedIn data.");
     } finally {
       setLoading(false);
     }
   };
 
+  const handleSubmit = async () => {
+    setLoading(true);
+    const res = await api.post("/personalized-message", form);
+    setMessage(res.data.message);
+    setLoading(false);
+  };
+
   return (
-    <div className="mt-6 p-4 border rounded bg-white shadow">
-      <h2 className="text-xl font-bold mb-2">Generate Outreach Message</h2>
-      <div className="space-y-2">
-        {Object.keys(form).map((key) => (
-          <div key={key}>
-            <input
-              name={key}
-              value={form[key as keyof FormState]}
-              onChange={handleChange}
-              placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-              className="w-full p-2 border rounded mb-2"
-            />
-          </div>
-        ))}
-        <button
-          onClick={handleGenerate}
-          className="bg-green-500 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? "Generating..." : "Generate"}
-        </button>
-        {error && <p className="mt-4 text-red-500">{error}</p>}
-        {message && <p className="mt-4 bg-gray-100 p-3 rounded">{message}</p>}
+    <div className="bg-white shadow rounded p-4">
+      <h2 className="text-xl font-semibold mb-4">🤖 AI Message Generator</h2>
+      <input
+        name="linkedin_url"
+        value={form.linkedin_url}
+        onChange={handleChange}
+        placeholder="Paste LinkedIn Profile URL"
+        className="input"
+      />
+      <button
+        onClick={fetchFromLinkedIn}
+        className="bg-indigo-600 text-white px-3 py-1 mt-2 rounded"
+      >
+        Fetch from LinkedIn
+      </button>
+
+      <div className="grid grid-cols-1 gap-2 mt-4">
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Name"
+          className="input"
+        />
+        <input
+          name="job_title"
+          value={form.job_title}
+          onChange={handleChange}
+          placeholder="Job Title"
+          className="input"
+        />
+        <input
+          name="company"
+          value={form.company}
+          onChange={handleChange}
+          placeholder="Company"
+          className="input"
+        />
+        <input
+          name="location"
+          value={form.location}
+          onChange={handleChange}
+          placeholder="Location"
+          className="input"
+        />
+        <textarea
+          name="summary"
+          value={form.summary}
+          onChange={handleChange}
+          placeholder="Summary"
+          className="input"
+        />
       </div>
+
+      <button
+        onClick={handleSubmit}
+        className="bg-green-600 text-white px-4 py-2 mt-4 rounded"
+      >
+        {loading ? "Generating..." : "Generate Message"}
+      </button>
+
+      {message && (
+        <div className="bg-gray-100 p-3 rounded mt-3 whitespace-pre-line">
+          {message}
+        </div>
+      )}
     </div>
   );
 };
