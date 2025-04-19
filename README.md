@@ -1,4 +1,4 @@
-# 🚀 OutFlo Campaign Manager
+# 🚀 campaign management system
 
 A full-stack campaign management system with AI-powered personalized LinkedIn message generation — built as part of the OutFlo Internship Assignment.
 
