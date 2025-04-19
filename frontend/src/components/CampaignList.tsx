@@ -5,7 +5,7 @@ interface Campaign {
   _id: string;
   name: string;
   description: string;
-  status: "ACTIVE" | "INACTIVE";
+  status: "active" | "inactive";
 }
 
 const CampaignList: React.FC = () => {
@@ -21,7 +21,7 @@ const CampaignList: React.FC = () => {
   }, []);
 
   const toggleStatus = async (id: string, status: string) => {
-    const newStatus = status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
+    const newStatus = status === "active" ? "inactive" : "active";
     await api.put(`/campaigns/${id}`, { status: newStatus });
     fetchCampaigns();
   };
@@ -44,7 +44,7 @@ const CampaignList: React.FC = () => {
                 onClick={() => toggleStatus(c._id, c.status)}
                 className="px-3 py-1 bg-yellow-500 text-white rounded"
               >
-                {c.status === "ACTIVE" ? "Deactivate" : "Activate"}
+                {c.status === "active" ? "Deactivate" : "Activate"}
               </button>
               <button
                 onClick={() => deleteCampaign(c._id)}

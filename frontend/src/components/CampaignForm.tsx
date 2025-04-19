@@ -4,7 +4,7 @@ import api from "../api";
 interface CampaignData {
   name: string;
   description: string;
-  status: "ACTIVE" | "INACTIVE";
+  status: "active" | "inactive";
   leads: string;
   accountIDs: string;
 }
@@ -21,7 +21,7 @@ const CampaignForm: React.FC = () => {
   const [form, setForm] = useState<CampaignData>({
     name: "",
     description: "",
-    status: "ACTIVE",
+    status: "active",
     leads: "",
     accountIDs: "",
   });
@@ -61,7 +61,7 @@ const CampaignForm: React.FC = () => {
       setForm({
         name: "",
         description: "",
-        status: "ACTIVE",
+        status: "active",
         leads: "",
         accountIDs: "",
       });
@@ -103,8 +103,8 @@ const CampaignForm: React.FC = () => {
         onChange={handleChange}
         className="w-full p-2 border rounded"
       >
-        <option value="ACTIVE">ACTIVE</option>
-        <option value="INACTIVE">INACTIVE</option>
+        <option value="active">ACTIVE</option>
+        <option value="inactive">INACTIVE</option>
       </select>
       <input
         name="leads"
