@@ -53,7 +53,7 @@ const CampaignForm: React.FC = () => {
     };
 
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
       await api.post("/campaigns", payload);
@@ -66,7 +66,7 @@ const CampaignForm: React.FC = () => {
         accountIDs: "",
       });
     } catch (err) {
-      const error = err as ApiError; 
+      const error = err as ApiError;
       setError(
         error?.response?.data?.error ||
           "There was an error creating the campaign."
