@@ -12,7 +12,7 @@ const CampaignList: React.FC = () => {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
   const fetchCampaigns = async () => {
-    const res = await api.get("/campaigns");
+    const res = await api.get<Campaign[]>("/campaigns");
     setCampaigns(res.data);
   };
 

@@ -1,8 +1,21 @@
 import { useState } from "react";
 import api from "../api";
 
+interface FormData {
+  name: string;
+  job_title: string;
+  company: string;
+  location: string;
+  summary: string;
+  linkedin_url: string;
+}
+
+interface MessageResponse {
+  message: string;
+}
+
 const MessageGenerator: React.FC = () => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormData>({
     name: "",
     job_title: "",
     company: "",
@@ -24,8 +37,10 @@ const MessageGenerator: React.FC = () => {
     if (!form.linkedin_url) return;
     setLoading(true);
     try {
-      const res = await api.post("/linkedin-parse", { url: form.linkedin_url });
-      setForm({ ...form, ...res.data });
+      const res = await api.post<FormData>("/linkedin-parse", {
+        url: form.linkedin_url,
+      });
+      setForm({ ...form, ...res.data }); 
     } catch {
       alert("Failed to fetch LinkedIn data.");
     } finally {
@@ -35,9 +50,17 @@ const MessageGenerator: React.FC = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const res = await api.post("/personalized-message", form);
-    setMessage(res.data.message);
-    setLoading(false);
+    try {
+      const res = await api.post<MessageResponse>(
+        "/personalized-message",
+        form
+      );
+      setMessage(res.data.message);
+    } catch {
+      alert("Failed to generate message.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
