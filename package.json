@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch backend/src/index.ts",
     "start": "node backend/dist/index.js",
-    "build": "npm run build --workspace frontend && tsc"
+    "build": "cd frontend && npm install && npm run build && cd .. && tsc"
   },
   "keywords": [],
   "author": "",
