@@ -1,22 +1,22 @@
-import { Router, Request, Response } from "express";
+import express, { Request, Response, Router } from "express";
+const router: Router = express.Router();
 
-const router = Router();
-
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response): Promise<void> => {
   const { url } = req.body;
 
   if (url) {
-    return res.json({
-      name: "John Doe",
+    res.json({
+      name: "Abhishek Kumar",
       job_title: "Full Stack Developer",
       company: "Google",
-      location: "Bangalore, India",
+      location: "India",
       summary:
-        "Experienced Full Stack developer skilled in React, Node.js, and MongoDB.",
+        "Passionate developer skilled in MERN stack and AI integrations.",
     });
+    return;
   }
 
-  return res.status(400).json({ message: "Invalid URL" });
+  res.status(400).json({ message: "Invalid URL" });
 });
 
 export default router;
