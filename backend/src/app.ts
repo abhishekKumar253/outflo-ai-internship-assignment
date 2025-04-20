@@ -8,6 +8,6 @@ app.use(express.json());
 
 app.use("/campaigns", campaignRoutes);
 app.use("/personalized-message", messageRoutes);
-app.use("/linkedin-parse", linkedinRouter);
+app.use("/linkedin-parse", linkedinRouter)
 
 export default app;
