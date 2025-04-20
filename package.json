@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch backend/src/index.ts",
-    "start": "tsx backend/src/index.ts",
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+    "start": "node backend/dist/index.js",
+    "build": "npm run build --workspace frontend && tsc"
   },
   "keywords": [],
   "author": "",
